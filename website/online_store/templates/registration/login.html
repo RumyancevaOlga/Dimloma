@@ -1,0 +1,14 @@
+{% extends "base/base.html" %}
+
+{% block title %}Вход на сайт{% endblock %}
+
+{% block content %}
+<h1>Вход</h1>
+<form method="post">
+    {% csrf_token %}
+    {% url 'index' as index %}
+    {{ form.as_p }}
+    <input type="hidden" name="next" value="{{ index }}">
+    <input type="submit" value="Войти">
+</form>
+{% endblock %}

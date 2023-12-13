@@ -1,0 +1,33 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <ul class="nav nav-pills">
+        {% if user.is_authenticated %}
+            {% url 'logout' as url_logout %}
+            <li class="nav-item mx-5">
+                <a class="nav-link text-bg-dark bg-danger" href="{{ url_logout }}">Выйти</a>
+            </li>
+        {% else %}
+            <li class="nav-item mx-2">
+                {% url 'login' as url_login %}
+                <a class="nav-link text-bg-info" href="{{ url_login }}">Авторизация</a>
+            </li>
+            <li class="nav-item mx-2">
+                {% url 'registration' as url_registration %}
+            <a class="nav-link text-bg-info" href="{{ url_registration }}">Регистрация</a>
+            </li>
+        {% endif %}
+    </ul>
+</div>
+<h1>Все схемы</h1>
+{% for drawing in drawings %}
+<div>
+    <h2>{{ drawing.title }}</h2>
+    <p>{{ drawing.description }}</p>
+    <p>{{ drawing.price }} руб.</p>
+    <p>{{ drawing.published|date:"d.m.Y H:i:s" }}</p>
+    <p><img src="media/{{ drawing.image }}" style="max-height: 200px;"/></p>
+</div>
+{% endfor %}
+{% endblock %}
